@@ -24,5 +24,10 @@
 	"activeTab",
 	"background",
 	"http://codeforces.com/"
-    ]
+    ],
+
+    "content_scripts": [ {
+        "js": [ "third_party/jquery.js", "showPreRatings.js"],
+        "matches": ["http://codeforces.com/contest/*/standings*"]
+      }]
 }
