@@ -1,0 +1,28 @@
+{
+    "name": "NBHEXT",
+    "version": "1.0",
+    "description": "No ButtHurt EXTension for Codeforces: know your rating",
+
+    "manifest_version": 2,
+
+    "background":
+    {
+	"scripts": ["third_party/jquery.js", "background.js"]
+    },
+
+    "icons":
+    {
+	"16": "icon16.png",
+	"32": "icon32.png",
+	"48": "icon48.png",
+	"128": "icon128.png"
+    },
+    
+    "permissions":
+    [
+	"tabs",
+	"activeTab",
+	"background",
+	"http://codeforces.com/"
+    ]
+}
