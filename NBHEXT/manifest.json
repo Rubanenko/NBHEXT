@@ -22,7 +22,7 @@
     ],
 
     "content_scripts": [ {
-        "js": [ "third_party/jquery.js", "showPreRatings.js"],
+        "js": [ "third_party/jquery.js", "showPreRatings.js", "RatingCalculation/CalculateRatingChanges.js"],
         "matches": ["http://codeforces.com/contest/*/standings*"]
       }]
 }

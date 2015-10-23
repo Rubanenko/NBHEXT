@@ -73,7 +73,6 @@ function CalculateRatingChanges(previousRatings, standingsRows, newcomers) {
 	for (var i = 0; i < standingsRows.length; i++) {
 		var currentContestant = {party: i, rank: standingsRows[i], rating: previousRatings[i], seed : 0.0, needRating : 0.0, delta : 0.0};
 		arr.push(currentContestant);
-		alert("op-op\n nachali!!");
 	}
 	var contestants = {
 		content : arr
@@ -86,11 +85,3 @@ function CalculateRatingChanges(previousRatings, standingsRows, newcomers) {
 	}
 	return result;
 }
-
-
-var a = [1500, 2300, 1850];
-var b = [2, 1, 3];
-var c;
-
-
-console.log(CalculateRatingChanges(a, b, c));
