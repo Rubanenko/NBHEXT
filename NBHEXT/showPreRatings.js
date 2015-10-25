@@ -2,12 +2,16 @@ var partyNum = 0;
 var ratings = [];
 var places = [];
 var deltas = [];
+var numbers = [];
 
-function partyRatingHtml()
+function modifyPartyHtml(index, elem)
 {
     var delta = 0;
     if (partyNum > 0)
-        delta = Math.round(deltas[partyNum - 1]);
+    {
+        var handle = $(elem).find("td:eq(1)").find("a").first().html();
+        delta = Math.round(deltas[numbers[handle]]);
+    }
     var text;
     if (partyNum == 0)
     {
@@ -24,12 +28,13 @@ function partyRatingHtml()
             text = "<td class='" + darkClass + "right'><span style='color:gray;font-weight:bold;'>" + (delta > 0 ? "-" : "") + delta + "</span></td>";        
     }
     ++partyNum;
-    return text;
+    $(elem).append(text);
 }
 
 function showPreRatings()
 {
-    $.getJSON("http://codeforces.com/api/contest.standings?contestId=587",
+    var contestId = document.location.href.replace(/\D+/ig, ',').substr(1).split(',')[0];
+    $.getJSON("http://codeforces.com/api/contest.standings?contestId=" + contestId,
         function(data)
         {
             var handles = "";
@@ -37,6 +42,7 @@ function showPreRatings()
             {
                 places[i] = data.result.rows[i].rank;
                 handles += data.result.rows[i].party.members[0].handle + ";";
+                numbers[data.result.rows[i].party.members[0].handle] = i;
             }
             $.getJSON("http://codeforces.com/api/user.info?handles=" + handles,
                 function(data)
@@ -46,7 +52,7 @@ function showPreRatings()
                     deltas = CalculateRatingChanges(ratings, places, []);
                     $(".standings").find("tr").first().find("th").last().removeClass("right");
                     $(".standings").find("tr").find("td").removeClass("right");
-                    $(".standings").find("tr").append(partyRatingHtml);
+                    $(".standings").find("tr").each(modifyPartyHtml);
                     $(".standings").find("tr").last().find("td").last().html("<td class='smaller bottom dark right'> </td>");
                 }
             );
