@@ -5,7 +5,7 @@ function getEloWinProbability(ra, rb) {
 function getSeed(contestants, rating) {
 	var result = 1.0;
 	for (var i = 0; i < contestants.content.length; i++) {
-		result += getEloWinProbability(contestants.content[i].rating, rating);
+		result += 1.0 / (1.0 + Math.pow(10, (rating - contestants.content[i].rating) / 400.0));
 	}
 	return result;
 }
