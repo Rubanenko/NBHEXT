@@ -10,7 +10,8 @@ function modifyPartyHtml(index, elem)
     if (partyNum > 0)
     {
         var handle = $(elem).find("td:eq(1)").find("a").first().html();
-        delta = Math.round(deltas[numbers[handle]]);
+        if (handle in numbers && numbers[handle] in deltas)
+            delta = Math.round(deltas[numbers[handle]]);
     }
     var text;
     if (partyNum == 0)
@@ -37,25 +38,25 @@ function showPreRatings()
     $.getJSON("http://codeforces.com/api/contest.standings?contestId=" + contestId,
         function(data)
         {
-            var handles = "";
+            var handles = [];
             for (var i = 0; i < data.result.rows.length; ++i)
             {
                 places[i] = data.result.rows[i].rank;
-                handles += data.result.rows[i].party.members[0].handle + ";";
                 numbers[data.result.rows[i].party.members[0].handle] = i;
+                handles.push(data.result.rows[i].party.members[0].handle);
             }
-            $.getJSON("http://codeforces.com/api/user.info?handles=" + handles,
-                function(data)
+            chrome.extension.sendRequest({"handles" : handles}, function(storedRatings) {
+                if (storedRatings.length == handles.length)
                 {
-                    for (var i = 0; i < data.result.length; ++i)
-                        ratings[i] = data.result[i].rating;
+                    for (var i = 0; i < storedRatings.length; ++i)
+                        ratings[i] = storedRatings[i];
                     deltas = CalculateRatingChanges(ratings, places, []);
-                    $(".standings").find("tr").first().find("th").last().removeClass("right");
-                    $(".standings").find("tr").find("td").removeClass("right");
-                    $(".standings").find("tr").each(modifyPartyHtml);
-                    $(".standings").find("tr").last().find("td").last().html("<td class='smaller bottom dark right'> </td>");
                 }
-            );
+                $(".standings").find("tr").first().find("th").last().removeClass("right");
+                $(".standings").find("tr").find("td").removeClass("right");
+                $(".standings").find("tr").each(modifyPartyHtml);
+                $(".standings").find("tr").last().find("td").last().html("<td class='smaller bottom dark right'> </td>");
+            });
         }
     );
 }
