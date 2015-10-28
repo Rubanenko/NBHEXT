@@ -1,7 +1,7 @@
 var ratings = [];
 var loaded = false;
 
-$.getJSON("http://codeforces.com/api/user.ratedList?activeOnly=true",
+$.getJSON("http://codeforces.com/api/user.ratedList?activeOnly=false",
     function(data)
     {
         for (var i = 0; i < data.result.length; ++i)

@@ -51,7 +51,9 @@ function showDeltas()
                     if (storedRatings.length == handles.length)
                     {
                         for (var i = 0; i < storedRatings.length; ++i)
-                            ratings[i] = storedRatings[i];
+                        {
+                            ratings[i] = (storedRatings[i] != 0 ? storedRatings[i] : 1500);
+                        }
                         deltas = CalculateRatingChanges(ratings, places, handles);
                     }
                     $(".standings").find("tr").first().find("th").last().removeClass("right");
