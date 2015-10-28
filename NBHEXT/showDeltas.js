@@ -10,8 +10,8 @@ function modifyPartyHtml(index, elem)
     if (partyNum > 0)
     {
         var handle = $(elem).find("td:eq(1)").find("a").first().html();
-        if (handle in numbers && numbers[handle] in deltas)
-            delta = Math.round(deltas[numbers[handle]]);
+        if (handle in deltas)
+            delta = Math.round(deltas[handle]);
     }
     var text;
     if (partyNum == 0)
@@ -45,7 +45,6 @@ function showDeltas()
                 for (var i = 0; i < data.result.rows.length; ++i)
                 {
                     places[i] = data.result.rows[i].rank;
-                    numbers[data.result.rows[i].party.members[0].handle] = i;
                     handles.push(data.result.rows[i].party.members[0].handle);
                 }
                 chrome.extension.sendRequest({"handles" : handles}, function(storedRatings) {
@@ -53,7 +52,7 @@ function showDeltas()
                     {
                         for (var i = 0; i < storedRatings.length; ++i)
                             ratings[i] = storedRatings[i];
-                        deltas = CalculateRatingChanges(ratings, places, []);
+                        deltas = CalculateRatingChanges(ratings, places, handles);
                     }
                     $(".standings").find("tr").first().find("th").last().removeClass("right");
                     $(".standings").find("tr").find("td").removeClass("right");
