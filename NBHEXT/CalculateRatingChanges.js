@@ -1,4 +1,15 @@
-//Disclaimer: this is my first js program 
+/* Created in autumn 2015
+   by
+   Roman Rubanenko    (@Rubanenko at codeforces.com),
+   Maxim Molchanov    (@MaximM at codeforces.com),
+   Aleksey Kholovchuk (@meh at pornhub.com)
+
+   This extension comes with absolutely NO WARRANTY,
+   use it on your own risk.
+
+   No rights reserved.
+*/
+
 
 function getEloWinProbability(ra, rb) {
 	return 1.0 / (1.0 + Math.pow(10.0, (rb - ra) / 400.0));
@@ -10,7 +21,7 @@ function getSeed(contestants, rating) {
 	}
 	var result = 1.0;
 	for (var i = 0; i < contestants.content.length; i++) {
-		result += 1.0 / (1.0 + Math.pow(10.0, (rating - contestants.content[i].rating) / 400.0));
+		result += getEloWinProbability(contestants.content[i].rating, rating);
 	}
 	contestants.memSeed[rating] = result;
 	return result;
@@ -124,16 +135,3 @@ function CalculateRatingChanges(previousRatings, standingsRows, userId) {
 	}
 	return result;
 }
-
-
-//
-// var a = [];
-// var b = [];
-// var c = [];
-// for (var i = 0; i < 5000; i++) {
-// 	a.push(i);
-// 	b.push(i);
-// 	c.push(i);
-// }
-
-// console.log(CalculateRatingChanges(a, b, c));

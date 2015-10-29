@@ -1,3 +1,15 @@
+/* Created in autumn 2015
+   by
+   Roman Rubanenko    (@Rubanenko at codeforces.com),
+   Maxim Molchanov    (@MaximM at codeforces.com),
+   Aleksey Kholovchuk (@meh at pornhub.com)
+
+   This extension comes with absolutely NO WARRANTY,
+   use it on your own risk.
+
+   No rights reserved.
+*/
+
 var partyNum = 0;
 var ratings = [];
 var places = [];
