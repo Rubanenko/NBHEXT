@@ -13,14 +13,17 @@
 var ratings = [];
 var loaded = false;
 
-$.getJSON("http://codeforces.com/api/user.ratedList?activeOnly=false",
-    function(data)
-    {
-        for (var i = 0; i < data.result.length; ++i)
-            ratings[data.result[i].handle] = data.result[i].rating;
-        loaded = true;
-    }
-);
+function loadUserData()
+{
+    $.getJSON("http://codeforces.com/api/user.ratedList?activeOnly=false",
+        function(data)
+        {
+            for (var i = 0; i < data.result.length; ++i)
+                ratings[data.result[i].handle] = data.result[i].rating;
+            loaded = true;
+        }
+    );
+}
 
 chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
     var result = [];
@@ -33,3 +36,6 @@ chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
         result.push(ratings[request.handles[i]]);
     sendResponse(result);
 });
+
+loadUserData();
+setInterval(loadUserData, 12 * 60 * 60 * 1000);  // reload every 12 hours.
