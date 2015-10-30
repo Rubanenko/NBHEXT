@@ -1,7 +1,7 @@
 {
-    "name": "NBHEXT",
-    "short_name": "NBHEXT",
-    "version": "1.0",
+    "name": "NBHEXT for Codeforces",
+    "short_name": "NBHEXT for Codeforces",
+    "version": "1.1",
     "description": "No ButtHurt EXTension for Codeforces: know your rating",
 
     "manifest_version": 2,
