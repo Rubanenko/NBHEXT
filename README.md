@@ -12,9 +12,9 @@ The latest version can be downloaded [from Google Web Store](https://chrome.goog
 
 As well you can install it as unpacked extension:
 
-- Enable developer mode at chrome://extensions/
-- Click the 'Load unpacked extension...' button and choose folder with extension
-- Enjoy your NBHEXT
+- Enable developer mode at [chrome://extensions/](chrome://extensions/)
+- Click the 'Load unpacked extension...' button and choose folder with unpacked extension (it is called [NBHEXT in repository](https://github.com/Rubanenko/NBHEXT/tree/master/NBHEXT))
+- Enjoy your NBHEXT!
 
 #### Contributing to NBHEXT
 Feel free to fix bugs or add new features, pull requests are welcome.
