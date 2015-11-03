@@ -33,7 +33,7 @@ chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
         return;
     }
     for (var i = 0; i < request.handles.length; ++i)
-        result.push(ratings[request.handles[i]]);
+        result.push(request.handles[i] in ratings ? ratings[request.handles[i]] : 0);
     sendResponse(result);
 });
 
