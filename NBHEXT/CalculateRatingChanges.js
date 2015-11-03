@@ -31,7 +31,7 @@ function getRatingToRank(contestants, rank) {
 	var left = 1;
 	var right = 8000;
 	while (right - left > 1) {
-		var mid = parseInt((left + right) / 2);
+		var mid = (left + right) >> 1;
 		if (getSeed(contestants, mid) < rank) {
 			right = mid;
 		} else {
@@ -73,8 +73,8 @@ function process(contestants) {
 	}
 	for (var i = 0; i < contestants.content.length; i++) {
 		var midRank = Math.sqrt(contestants.content[i].rank * contestants.content[i].seed);
-		contestants.content[i].needRating = parseInt(getRatingToRank(contestants, midRank));
-		contestants.content[i].delta      = parseInt((contestants.content[i].needRating - contestants.content[i].rating) / 2);
+		contestants.content[i].needRating = getRatingToRank(contestants, midRank);
+		contestants.content[i].delta      = (contestants.content[i].needRating - contestants.content[i].rating) >> 1;
 	}
 
 
@@ -95,9 +95,9 @@ function process(contestants) {
 	{
 		var sum = 0;
 		for (var i = 0; i < contestants.content.length; i++) {
-			sum += parseInt(contestants.content[i].delta);
+			sum += contestants.content[i].delta;
 		}
-		var inc = parseInt(-sum / contestants.content.length) - 1;
+		var inc = ((-sum / contestants.content.length) >> 0) - 1;
 		for (var i = 0; i < contestants.content.length; i++) {
 			contestants.content[i].delta += inc;
 		}
@@ -105,15 +105,17 @@ function process(contestants) {
 
 
 	var sum = 0;
-	var zeroSumCount = parseInt(Math.min((parseInt(4 * Math.round(Math.sqrt(contestants.content.length)))), contestants.content.length));
+	var zeroSumCount = Math.min(4 * Math.round(Math.sqrt(contestants.content.length)), contestants.content.length);
 	for (var i = 0; i < zeroSumCount; i++) {
 		sum += contestants.content[i].delta;
 	}
-	var inc = parseInt(Math.min(Math.max(parseInt(-sum / zeroSumCount), -10), 0));
+	var inc = Math.min(Math.max(((-sum / zeroSumCount) >> 0), -10), 0);
 	for (var i = 0; i < contestants.content.length; i++) {
 		contestants.content[i].delta += inc;
 	}
 }
+
+
 
 
 function CalculateRatingChanges(previousRatings, standingsRows, userId) {
