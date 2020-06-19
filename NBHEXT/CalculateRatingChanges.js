@@ -2,7 +2,7 @@
    by
    Roman Rubanenko    (@Rubanenko at codeforces.com),
    Maxim Molchanov    (@MaximM at codeforces.com),
-   Aleksey Kholovchuk (@meh at pornhub.com)
+   Aleksey Kholovchuk (@meh at codeforces.com)
 
    This extension comes with absolutely NO WARRANTY,
    use it on your own risk.
