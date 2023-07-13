@@ -1,5 +1,5 @@
 # NBHEXT
-No ButtHurt EXTension for *Codeforces*
+No B-Hurt EXTension for *Codeforces*
 -------
 
 #### Summary:
