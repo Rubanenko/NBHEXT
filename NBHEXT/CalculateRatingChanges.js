@@ -135,3 +135,63 @@ function CalculateRatingChanges(previousRatings, standingsRows, userId) {
 	}
 	return result;
 }
+
+function fft(x) {
+    const N = x.length;
+
+    if (N <= 1) return x;
+
+    const even = [];
+    const odd = [];
+
+    for (let i = 0; i < N; i++) {
+        if (i % 2 === 0) even.push(x[i]);
+        else odd.push(x[i]);
+    }
+
+    const evenFFT = fft(even);
+    const oddFFT = fft(odd);
+
+    const T = [];
+    for (let k = 0; k < N / 2; k++) {
+        const t = Math.exp(-2 * Math.PI * k / N * 1j) * oddFFT[k];
+        T.push(t);
+    }
+
+    const result = [];
+    for (let k = 0; k < N / 2; k++) {
+        result[k] = evenFFT[k] + T[k];
+        result[k + N / 2] = evenFFT[k] - T[k];
+    }
+
+    return result;
+}
+
+// Helper function to handle complex numbers
+function complex(real, imaginary) {
+    return {
+        r: real,
+        i: imaginary,
+        toString: function() {
+            return `${this.r} + ${this.i}j`;
+        },
+        plus: function(other) {
+            return complex(this.r + other.r, this.i + other.i);
+        },
+        minus: function(other) {
+            return complex(this.r - other.r, this.i - other.i);
+        },
+        times: function(other) {
+            return complex(
+                this.r * other.r - this.i * other.i,
+                this.r * other.i + this.i * other.r
+            );
+        }
+    };
+}
+
+Math.exp = function(c) {
+    const r = Math.E ** c.r;
+    return complex(r * Math.cos(c.i), r * Math.sin(c.i));
+};
+
