@@ -1,35 +1,60 @@
 {
+    "manifest_version": 2,
+
     "name": "NBHEXT for Codeforces",
     "short_name": "NBHEXT for Codeforces",
     "version": "1.1",
-    "description": "No ButtHurt EXTension for Codeforces: know your rating",
+    "description": "No ButtHurt EXTension for Codeforces: Provides instant rating insights and more for a better Codeforces experience.",
 
-    "manifest_version": 2,
-
-    "icons":
-    {
-    	"16": "static/icon16.png",
-    	"32": "static/icon32.png",
-    	"48": "static/icon48.png",
-    	"128": "static/icon128.png"
+    "icons": {
+        "16": "static/icon16.png",
+        "32": "static/icon32.png",
+        "48": "static/icon48.png",
+        "128": "static/icon128.png"
     },
-    
-    "permissions":
-    [
-    	"tabs",
-    	"activeTab",
-    	"background",
-    	"http://codeforces.com/"
+
+    "permissions": [
+        "tabs",
+        "activeTab",
+        "background",
+        "notifications", // Added for browser notification capability
+        "https://codeforces.com/"
     ],
 
-    "content_scripts":
-    [{
-        "js": ["third_party/jquery.js", "showDeltas.js", "CalculateRatingChanges.js"],
-        "matches": ["http://codeforces.com/contest/*/standings*"]
-    }],
+    "background": {
+        "scripts": ["third_party/jquery.js", "background.js"],
+        "persistent": false // Specify non-persistent background to make it event-driven
+    },
 
-    "background":
-    {
-        "scripts" : ["third_party/jquery.js", "background.js"]
-    }
+    "content_scripts": [
+        {
+            "js": ["third_party/jquery.js", "showDeltas.js", "CalculateRatingChanges.js"],
+            "matches": ["https://codeforces.com/contest/*/standings*"]
+        }
+    ],
+
+    "options_page": "options.html", // Users can customize settings of your extension
+
+    "browser_action": {
+       "default_icon": {
+           "16": "static/icon16.png",
+           "32": "static/icon32.png"
+       },
+       "default_title": "NBHEXT for Codeforces", 
+       "default_popup": "popup.html" // A clickable UI in the toolbar
+    },
+
+    "commands": { // Keyboard shortcuts for your extension
+        "_execute_browser_action": {
+            "suggested_key": {
+                "default": "Ctrl+Shift+Y"
+            },
+            "description": "Open NBHEXT for Codeforces"
+        }
+    },
+
+    "web_accessible_resources": [ // Resources available to web pages
+        "images/*.png",
+        "styles/*.css"
+    ]
 }
