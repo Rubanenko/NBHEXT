@@ -17,7 +17,6 @@
         "tabs",
         "activeTab",
         "background",
-        "storage", // Added for local storage capability
         "notifications", // Added for browser notification capability
         "https://codeforces.com/"
     ],
